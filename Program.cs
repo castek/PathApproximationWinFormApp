@@ -1,25 +1,25 @@
 using PathApproximation;
+using Point = PathApproximation.Point;
 
 namespace PathApproximationWinFormApp
 {
     public static class Program
     {
-
-        public static List<PointLog> Snake = new List<PointLog> {
-            new(new(0, 0), TimeSpan.FromMinutes(0)),//
-            new(new(1, 0), TimeSpan.FromMinutes(4)),//
-            new(new(2, 1), TimeSpan.FromMinutes(5)),//
-            new(new(2, 2), TimeSpan.FromMinutes(6)),//
-            new(new(1, 4), TimeSpan.FromMinutes(7)),//
-            new(new(0, 5), TimeSpan.FromMinutes(8)),//
-            new(new(1, 6), TimeSpan.FromMinutes(9)),//
-            new(new(2, 6), TimeSpan.FromMinutes(10)),
-            new(new(3, 6), TimeSpan.FromMinutes(11)),//
-            new(new(4, 7), TimeSpan.FromMinutes(12)),//
-            new(new(4, 8), TimeSpan.FromMinutes(13)),//
-            new(new(3, 8), TimeSpan.FromMinutes(14)),
-            new(new(2, 8), TimeSpan.FromMinutes(15)),
-            new(new(1, 8), TimeSpan.FromMinutes(16)),//
+        private static List<Point> Snake = new List<Point> {
+            new(0, 0),
+            new(1, 0),
+            new(2, 1),
+            new(2, 2),
+            new(1, 4),
+            new(0, 5),
+            new(1, 6),
+            new(2, 6),
+            new(3, 6),
+            new(4, 7),
+            new(4, 8),
+            new(3, 8),
+            new(2, 8),
+            new(1, 8),
         };
 
         [STAThread]
@@ -31,9 +31,13 @@ namespace PathApproximationWinFormApp
 
             var approximizer = new Approximizer();
             var cornerpoints = approximizer.FilterCornerpoints(Snake);
-            var approximatedPath = approximizer.Approximate(Snake, 0.1d);
+            var approximatedPath = approximizer.Approximate(Snake, 1d);
 
-            ImageDisplayForm.DrawCenteredPolyline(Snake, approximatedPath, cornerpoints, imageWidth, imageHeight, outputPath);
+            ImageDisplayForm.DrawCenteredPolyline(
+                Snake.Select(p => new PointF((float)p.X, (float)p.Y)).ToList(), 
+                approximatedPath.Select(p => new PointF((float)p.X, (float)p.Y)).ToList(), 
+                cornerpoints.Select(p => new PointF((float)p.X, (float)p.Y)).ToList(), 
+                imageWidth, imageHeight, outputPath);
 
             Application.EnableVisualStyles();
             Application.Run(new ImageDisplayForm(outputPath));

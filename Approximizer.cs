@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static PathApproximation.Program;
-
-namespace PathApproximation
+﻿namespace PathApproximation
 {
     public class Approximizer
     {
@@ -24,7 +17,7 @@ namespace PathApproximation
          * @param threshold The maximum distance between the input path and the new path.
          * @return A new path that approximates the input path.
          */
-        public List<PointLog> Approximate(List<PointLog> inputPath, double threshold)
+        public List<Point> Approximate(List<Point> inputPath, double threshold)
         {
             if (inputPath == null)
             {
@@ -36,7 +29,7 @@ namespace PathApproximation
                 throw new ArgumentOutOfRangeException(nameof(threshold));
             }
 
-            var input = inputPath.Select((p, i) => new IndexedPoint(p.Point.X, p.Point.Y, i)).ToList();
+            var input = inputPath.Select((p, i) => new IndexedPoint(p.X, p.Y, i)).ToList();
 
             var segment = input.Count > 1 ? new Vector(input[0], input[1]) : null;
             var cornerpoints = FilterCornerpoints(input);
@@ -106,7 +99,12 @@ namespace PathApproximation
          * If more points in a row have the same angle, only the first one is considered to be a corner point.
          * Finally it adds the first point of straight sequence of points as a corner point as well.
          */
-        public List<IndexedPoint> FilterCornerpoints(List<IndexedPoint> input)
+        public List<IndexedPoint> FilterCornerpoints(List<Point> input)
+        {
+            return FilterCornerpoints(input.Select((p, i) => new IndexedPoint(p.X, p.Y, i)).ToList());
+        }
+        
+        private List<IndexedPoint> FilterCornerpoints(List<IndexedPoint> input)
         {
             // changes in angle smaller than this will be ignored
             const double angleSmoothing = 2 * Degree;

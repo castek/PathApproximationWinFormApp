@@ -6,11 +6,6 @@
      */
     public record Point(double X, double Y);
 
-    /**
-     * Represents a point in 2D cartesian coordinate system with a time associated with it.
-     */
-    public record PointLog(PointF Point, TimeSpan Time);
-
     public record IndexedPoint(double X, double Y, int Index);
     public record Vector(IndexedPoint From, IndexedPoint To);
 }
