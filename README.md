@@ -6,5 +6,7 @@ It uses win forms to visualize the original path (blue) and the new approximated
 The solution found is not optimal (the least number of points), what would be NP-complete problem. The solution found is suboptimal.
 Complexity of solution used is O(n^2) in general. It uses optimization, so that for appropriate input, the complexity is up to O(n). 
 The optimization checks reduced path just against cornerpoints (green) that are situated on the original path.
+
+
 ![Original path in blue, approximated path in red, cornerpoints in green](polyline.png)
 
