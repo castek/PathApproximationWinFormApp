@@ -209,11 +209,6 @@
             return Math.Sqrt(Math.Pow(point.X - point2.X, 2) + Math.Pow(point.Y - point2.Y, 2));
         }
 
-        private double Angle(Vector v1, Vector v2)
-        {
-            return Angle(new Point(v1.To.X - v1.From.X, v1.To.Y - v1.From.Y), new Point(v2.To.X - v2.From.X, v2.To.Y - v2.From.Y));
-        }
-
         /**
          * Calculate the angle between two vectors.
          * 
@@ -221,6 +216,11 @@
          * @param v2 The second vector.
          * @return The angle between the two vectors in radians. If result is positive, the second vector is to the left (turns counterclockwise) of the first vector.
          */
+        private double Angle(Vector v1, Vector v2)
+        {
+            return Angle(new Point(v1.To.X - v1.From.X, v1.To.Y - v1.From.Y), new Point(v2.To.X - v2.From.X, v2.To.Y - v2.From.Y));
+        }
+
         private double Angle(Point v1, Point v2)
         {
             var dotProduct = v1.X * v2.X + v1.Y * v2.Y;
