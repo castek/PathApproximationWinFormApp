@@ -7,7 +7,10 @@
         /**
          * Approximate the input path by reducing the number of its points.
          * The new path should be within the specified threshold of the input path.
-         * Complexity is O(n^2). It uses optimization, so that for appropriate input, the complexity is up to O(n).
+         * 
+         * The solution found is not optimal (the least number of points), what would be NP-complete problem. The solution found is suboptimal.
+         * Complexity of this solution is O(n^2) in general. It uses optimization, so that for appropriate input, the complexity is up to O(n). 
+         *
          * Idea of algorithm: 
          *      Making a segment longer and longer, checking if the deviation is exceeded, if yes, the previous point is suspicious to be a part of approximate path.
          *      Suspicious points are checked once again to see if they are sufficient to form approximate path. 
